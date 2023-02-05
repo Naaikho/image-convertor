@@ -10,7 +10,10 @@ class ImageConvertor:
         if outName == "":
             outName = self.nameOut(file)
         outDir = self.directoryOut(file) if outDir == "" else self.fileOut(outDir)
-        Image.open(file).save("{}\\{}.{}".format(outDir,outName,ext))
+        i = Image.open(file)
+        if ext == "png":
+            i = i.convert("RGB")
+        i.save("{}\\{}.{}".format(outDir,outName,ext))
 
     def nameOut(self, filePath)->str:
         filePath = ".".join(filePath.replace("/", ",").replace("\\", ",").split(",")[-1].split(".")[0:-1])
